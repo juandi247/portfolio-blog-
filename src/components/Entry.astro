@@ -1,0 +1,12 @@
+---
+import type { Entry } from '../data/site';
+const { e } = Astro.props as { e: Entry };
+---
+<article class="card big">
+  <div class="logo">{e.img ? <img src={e.img} alt="" /> : e.logo}</div>
+  <div>
+    <div class="t2"><h3>{e.title}</h3><span class="when">{e.when}</span></div>
+    <div class="co">{e.org} <span>· {e.place}</span></div>
+    {e.desc && <p>{e.desc}</p>}
+  </div>
+</article>

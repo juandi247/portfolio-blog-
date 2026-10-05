@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { sortedPosts, fmt } from '../data/site';
+const posts = sortedPosts();
+---
+<Base title="Blog – Nico Ramírez" active="blog">
+  <h1>Blog</h1>
+  <p class="sub">Things I learn, build and think about.</p>
+  <ul class="list">
+    {posts.map((p) => (
+      <li>
+        <span class="k">{fmt(p.date)}</span>
+        <div><a href={p.url}>{p.title}</a>{p.desc && <small>{p.desc}</small>}</div>
+      </li>
+    ))}
+  </ul>
+  <a class="back" href="/">← Back to home</a>
+</Base>

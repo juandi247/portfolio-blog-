@@ -1,0 +1,76 @@
+---
+import Base from '../layouts/Base.astro';
+import Photo from '../components/Photo.astro';
+import Entry from '../components/Entry.astro';
+import { sortedPosts, fmt, projects, experience, education, languages, contact } from '../data/site';
+
+const latest = sortedPosts().slice(0, 2);
+---
+<Base active="home">
+  <header class="hero" id="home">
+    <div>
+      <h1>Nico Ramírez</h1>
+      <p class="lead">I'm a software engineer building web products and the systems behind them, currently working as a full-stack developer at Alfa Studio. Before that, I spent three years on a news platform used by thousands of readers every day.</p>
+      <p class="lead">I have a bachelor's degree in Software Engineering and I'm studying for a master's in Computer Engineering.</p>
+      <div class="cta">
+        <a class="btn p" href="/blog">My blog posts</a>
+        <a class="btn" href="#projects">My projects</a>
+      </div>
+    </div>
+    <Photo />
+  </header>
+
+  <section id="posts">
+    <h2>Latest blog posts</h2>
+    <ul class="list">
+      {latest.map((p) => (
+        <li>
+          <span class="k">{fmt(p.date)}</span>
+          <div><a href={p.url}>{p.title}</a>{p.desc && <small>{p.desc}</small>}</div>
+        </li>
+      ))}
+    </ul>
+    <a class="more" href="/blog">See all posts →</a>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="cards">
+      {projects.map((p) => (
+        <article class="card">
+          <h3>{p.title}</h3>
+          <p>{p.desc}</p>
+          <div class="cl"><a href={p.url}>{new URL(p.url).hostname} ↗</a></div>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section id="experience">
+    <h2>Experience</h2>
+    <div class="stack">{experience.map((e) => <Entry e={e} />)}</div>
+  </section>
+
+  <section id="languages">
+    <h2>Languages</h2>
+    <div class="langs">
+      {languages.map((l) => <div><b>{l.name}</b><span>{l.level}</span></div>)}
+    </div>
+  </section>
+
+  <section id="education">
+    <h2>Education</h2>
+    <div class="stack">{education.map((e) => <Entry e={e} />)}</div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Want to say hi? Write me at <a href={`mailto:${contact.email}`}>{contact.email}</a></p>
+    <div class="links">
+      <a href={contact.github}>GitHub ↗</a>
+      <a href={contact.linkedin}>LinkedIn ↗</a>
+    </div>
+  </section>
+
+  <footer>© 2026 Nico Ramírez</footer>
+</Base>
